@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 260 25% 6%;
+    --foreground: 260 20% 92%;
+
+    --card: 260 25% 10%;
+    --card-foreground: 260 20% 92%;
+
+    --popover: 260 25% 10%;
+    --popover-foreground: 260 20% 92%;
+
+    --primary: 265 90% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 260 30% 16%;
+    --secondary-foreground: 260 20% 85%;
+
+    --muted: 260 20% 14%;
+    --muted-foreground: 260 15% 55%;
+
+    --accent: 220 90% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 260 20% 18%;
+    --input: 260 20% 18%;
+    --ring: 265 90% 65%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens */
+    --neon-purple: 265 90% 65%;
+    --neon-blue: 220 90% 60%;
+    --neon-magenta: 320 80% 55%;
+    --neon-cyan: 190 90% 55%;
+    --neon-green: 150 80% 50%;
+    --glass-bg: 260 25% 12%;
+    --glass-border: 260 30% 22%;
+    --surface-elevated: 260 25% 13%;
+
+    --sidebar-background: 260 25% 8%;
+    --sidebar-foreground: 260 20% 75%;
+    --sidebar-primary: 265 90% 65%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 260 30% 16%;
+    --sidebar-accent-foreground: 260 20% 92%;
+    --sidebar-border: 260 20% 15%;
+    --sidebar-ring: 265 90% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-card/60 backdrop-blur-xl border border-glass-border rounded-xl;
+    box-shadow: 
+      0 0 30px -10px hsl(var(--neon-purple) / 0.15),
+      inset 0 1px 0 0 hsl(var(--glass-border) / 0.3);
+  }
+
+  .glass-card {
+    @apply glass-panel p-5 transition-all duration-300;
+  }
+
+  .glass-card:hover {
+    box-shadow: 
+      0 0 40px -10px hsl(var(--neon-purple) / 0.25),
+      0 8px 32px -8px hsl(0 0% 0% / 0.4),
+      inset 0 1px 0 0 hsl(var(--glass-border) / 0.4);
+    transform: translateY(-2px);
+  }
+
+  .neon-glow {
+    box-shadow: 0 0 20px -5px hsl(var(--neon-purple) / 0.4),
+                0 0 40px -10px hsl(var(--neon-purple) / 0.2);
+  }
+
+  .neon-text {
+    text-shadow: 0 0 20px hsl(var(--neon-purple) / 0.5),
+                 0 0 40px hsl(var(--neon-purple) / 0.3);
+  }
+
+  .gradient-border {
+    position: relative;
+    border: none;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--neon-purple) / 0.5),
+      hsl(var(--neon-blue) / 0.3),
+      hsl(var(--neon-magenta) / 0.2)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .status-pulse {
+    @apply relative;
+  }
+
+  .status-pulse::after {
+    content: '';
+    @apply absolute inset-0 rounded-full;
+    animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0; transform: scale(1.8); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .shimmer-bg {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--glass-bg)) 0%,
+      hsl(var(--glass-border)) 50%,
+      hsl(var(--glass-bg)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
