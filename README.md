@@ -328,6 +328,6 @@ Built with:
 
 **TaskOS** — *Where clarity meets productivity.*
 
-Built with ❤️ by the TaskOS Team
+
 
 </div>
